@@ -12,7 +12,7 @@ import (
 )
 
 var version = "20210920"
-var describe = "更新"
+var describe = "重大更新"
 var AppName = "xdd"
 var pname = regexp.MustCompile(`/([^/\s]+)`).FindStringSubmatch(os.Args[0])[1]
 

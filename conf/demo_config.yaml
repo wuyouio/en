@@ -10,7 +10,9 @@ containers:
     limit: 9999
 AtTime:  0,12 #转换wskey时间。
 Wskey: true # 填空默认禁用wskey转换 需要的填true
+IsHelp:   #填写true或者false  false
 IsOldV4: true #填写true或者false  false是否A1或者旧版V4
+ApiToken: #为空默认随机禁用
 theme:   #自定义主题，支持本地、网络路径
 static: ./static
 master:  #管理员账户
