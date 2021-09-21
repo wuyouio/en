@@ -28,6 +28,21 @@ type Sender struct {
 	ReplySenderUserID int
 }
 
+type QQuery struct {
+	Code int `json:"code"`
+	Data struct {
+		LSid          string `json:"lSid"`
+		QqLoginQrcode struct {
+			Bytes byte   `json:"bytes"`
+			Sig   string `json:"sig"`
+		} `json:"qqLoginQrcode"`
+		RedirectURL string `json:"redirectUrl"`
+		State       string `json:"state"`
+		TempCookie  string `json:"tempCookie"`
+	} `json:"data"`
+	Message string `json:"message"`
+}
+
 func (sender *Sender) Reply(msg string) {
 	switch sender.Type {
 	case "tg":
@@ -749,10 +764,7 @@ var codeSignals = []CodeSignal{
 		Handle: func(sender *Sender) interface{} {
 			sender.Reply(fmt.Sprintf("删除所有false账号，请慎用"))
 			sender.handleJdCookies(func(ck *JdCookie) {
-				if ck.Available == False {
-					ck.Removes(ck)
-					sender.Reply(fmt.Sprintf("已清理账号%s", ck.Nickname))
-				}
+				cleanCookie()
 			})
 			return nil
 		},
@@ -786,6 +798,17 @@ var codeSignals = []CodeSignal{
 			sender.handleJdCookies(func(ck *JdCookie) {
 				ck.Update(Priority, 2)
 				sender.Reply(fmt.Sprintf("已取消屏蔽账号%s", ck.Nickname))
+			})
+			return nil
+		},
+	},
+	{
+		Command: []string{"删除WCK"},
+		Admin:   true,
+		Handle: func(sender *Sender) interface{} {
+			sender.handleJdCookies(func(ck *JdCookie) {
+				ck.Update(WsKey, "")
+				sender.Reply(fmt.Sprintf("已删除WCK,%s", ck.Nickname))
 			})
 			return nil
 		},

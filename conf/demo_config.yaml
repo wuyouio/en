@@ -1,4 +1,4 @@
-mode: parallel  #模式 balance(均衡模式)、parallel(平行模式)
+mode: parallel #模式 balance(均衡模式)、parallel(平行模式)
 containers:
   - address: http://0.0.0.0:0000 #面板访问地址
     username: admin
@@ -8,11 +8,12 @@ containers:
     weigth:  
     mode: parallel
     limit: 9999
-AtTime: 0,12 #转换wskey时间
-IsOldV4: true #填写true或者false  false是否新版或者旧版V4
-ApiToken: #为空默认随机禁用
+AtTime: 0,12 #转换wskey时间。
 Wskey: true # 填空默认禁用wskey转换 需要的填true
-theme:  #自定义主题，支持本地、网络路径
+IsHelp:   #填写true或者false  false
+IsOldV4: true
+ApiToken: #为空默认随机禁用
+theme:  
 static: ./static
 master:  #管理员账户
 database:  #数据库位置
@@ -24,9 +25,9 @@ telegram_bot_token:
 telegram_user_id:
 qquid:  #接收通知的qq号
 qqgid:  #监听的群
-qbot_public_mode: true
+qbot_public_mode: #qq机器人群聊模式，默认私聊模式（true，默认false）
 default_priority:
 no_ghproxy: true
 daily_asset_push_cron: 0 9 * * * #日常资产推送时间
 repos:
-  - git: h
+  - git: 

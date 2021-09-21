@@ -19,9 +19,7 @@ var SendQQ = func(a int64, b interface{}) {
 var SendQQGroup = func(a int64, b int64, c interface{}) {
 
 }
-var AggreQQ = func(a int64, b bool, c interface{}) {
 
-}
 var ListenQQPrivateMessage = func(uid int64, msg string) {
 	SendQQ(uid, handleMessage(msg, "qq", int(uid)))
 }
@@ -37,6 +35,10 @@ var ListenQQGroupMessage = func(gid int64, uid int64, msg string) {
 }
 
 var replies = map[string]string{}
+
+func AggQQ() {
+
+}
 
 func InitReplies() {
 	f, err := os.Open(ExecPath + "/conf/reply.php")
@@ -315,7 +317,7 @@ var handleMessage = func(msgs ...interface{}) interface{} {
 		for k, v := range replies {
 			if regexp.MustCompile(k).FindString(msg) != "" {
 				if strings.Contains(msg, "妹") && time.Now().Unix()%10 == 0 {
-					v = "https://pics4.baidu.com/feed/d833c895d143ad4bfee5f874cfdcbfa9a60f069b.jpeg?token=8a8a0e1e20d4626cd31c0b838d9e4c1a"
+					v = ""
 				}
 				if regexp.MustCompile(`^https{0,1}://[^\x{4e00}-\x{9fa5}\n\r\s]{3,}$`).FindString(v) != "" {
 					url := v
