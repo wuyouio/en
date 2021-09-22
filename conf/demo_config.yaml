@@ -23,6 +23,7 @@ resident:
 user_agent:
 telegram_bot_token:
 telegram_user_id:
+TGURL: #填写TG代理地址参考https://www.kejiwanjia.com/server/5221.html#3worker
 qquid:  #接收通知的qq号
 qqgid:  #监听的群
 qbot_public_mode: #qq机器人群聊模式，默认私聊模式（true，默认false）
