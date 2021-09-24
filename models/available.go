@@ -124,6 +124,7 @@ func initCookie() {
 	//l := len(cks)
 	for i := range cks {
 		if cks[i].Available == True && !CookieOK(&cks[i]) {
+			logs.Info("开始禁用")
 			cks[i].OutPool()
 		}
 	}
@@ -234,7 +235,6 @@ func CookieOK(ck *JdCookie) bool {
 		if ui.Msg == "not login" {
 			if ck.Available == True {
 				ck.Update(Available, False)
-
 				logs.Info(ck.Available)
 				if Config.Wskey {
 					if len(ck.WsKey) > 0 {
@@ -243,7 +243,7 @@ func CookieOK(ck *JdCookie) bool {
 						if err != nil {
 							logs.Error(err)
 						}
-						JdCookie{}.Push(fmt.Sprintf("自动转换wskey---%s", msg))
+						//JdCookie{}.Push(fmt.Sprintf("自动转换wskey---%s", msg))
 						//缺少错误判断
 						if strings.Contains(msg, "错误") {
 							ck.Push(fmt.Sprintf("Wskey失效账号，%s", ck.PtPin))

@@ -3,23 +3,24 @@ containers:
   - address: http://0.0.0.0:0000 #面板访问地址
     username: admin
     password: admin
-    cid: admin #青龙系统设置
-    secret: admin #青龙系统设置
+    cid: admin
+    secret: admin
     weigth:  
     mode: parallel
     limit: 9999
 AtTime: 0,12 #转换wskey时间。
-Wskey: true # 填空默认禁用wskey转换 需要的填true
 IsHelp:   #填写true或者false  false
-IsOldV4: true
+IsOldV4: #填写true或者false  false是否新版或者旧版V4
 ApiToken: #为空默认随机禁用
-theme:  
+Wskey: # 填空默认禁用wskey转换 需要的填true
+SMSAddress:
+theme: #自定义主题，支持本地、网络路径
 static: ./static
 master:  #管理员账户
 database:  #数据库位置
-qywx_key: #企业微信机器人key
-daily_push:
-resident:
+qywx_key:  #企业微信推送key
+daily_push: #定时任务
+resident: #均衡模式下所有容器共同的账号pin，有多个用'&'拼接。
 user_agent:
 telegram_bot_token:
 telegram_user_id:
@@ -27,8 +28,8 @@ TGURL: #填写TG代理地址参考https://www.kejiwanjia.com/server/5221.html#3w
 qquid:  #接收通知的qq号
 qqgid:  #监听的群
 qbot_public_mode: #qq机器人群聊模式，默认私聊模式（true，默认false）
-default_priority:
-no_ghproxy: true
+default_priority: 3 #新用户默认优先级
+no_ghproxy: true #更新资源是否不使用代理 默认false
 daily_asset_push_cron: 0 9 * * * #日常资产推送时间
 repos:
   - git: 
