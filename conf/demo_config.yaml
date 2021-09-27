@@ -30,6 +30,7 @@ qqgid:  #监听的群
 qbot_public_mode: #qq机器人群聊模式，默认私聊模式（true，默认false）
 default_priority: 3 #新用户默认优先级
 no_ghproxy: true #更新资源是否不使用代理 默认false
+IsAddFriend: #是否自动自动添加好友 填写true或者false 
 daily_asset_push_cron: 0 9 * * * #日常资产推送时间
 repos:
   - git: 
