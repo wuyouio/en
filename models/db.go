@@ -2,7 +2,6 @@ package models
 
 import (
 	"fmt"
-	"github.com/beego/beego/v2/core/logs"
 	"strings"
 	"time"
 
@@ -45,6 +44,7 @@ func initDB() {
 		&Wish{},
 		&Token{},
 		&UserAdmin{},
+		&Limit{},
 	)
 	keys = make(map[string]bool)
 	pins = make(map[string]bool)
@@ -116,7 +116,6 @@ type JdCookiePool struct {
 	ID       int    `gorm:"column:ID;primaryKey"`
 	PtKey    string `gorm:"column:PtKey;unique"`
 	PtPin    string `gorm:"column:PtPin"`
-	WsKey    string `gorm:"column:WsKey"`
 	LoseAt   string `gorm:"column:LoseAt"`
 	CreateAt string `gorm:"column:CreateAt"`
 }
@@ -219,7 +218,6 @@ func (ck *JdCookie) InPool(pt_key string) error {
 		if err := tx.Create(&JdCookiePool{
 			PtPin:    ck.PtPin,
 			PtKey:    pt_key,
-			WsKey:    ck.WsKey,
 			CreateAt: date,
 		}).Error; err != nil {
 			tx.Rollback()
@@ -244,9 +242,8 @@ func (ck *JdCookie) OutPool() (string, error) {
 		if tx.Where(fmt.Sprintf("%s = '%s' and %s = '%s'", PtPin, ck.PtPin, LoseAt, "")).First(jp).Error != nil {
 			us[Available] = False
 			us[PtKey] = ""
-			logs.Info("开始禁用")
 		} else {
-			us[Available] = False
+			us[Available] = True
 			us[PtKey] = jp.PtKey
 		}
 		e := tx.Model(ck).Updates(us).RowsAffected
@@ -277,7 +274,6 @@ func NewJdCookie(ck *JdCookie) error {
 	if err := tx.Create(&JdCookiePool{
 		PtPin:    ck.PtPin,
 		PtKey:    ck.PtKey,
-		WsKey:    ck.WsKey,
 		CreateAt: date,
 	}).Error; err != nil {
 		tx.Rollback()
@@ -302,7 +298,6 @@ func UpdateCookie(ck *JdCookie) error {
 	if err := tx.Create(&JdCookiePool{
 		PtPin:    ck.PtPin,
 		PtKey:    ck.PtKey,
-		WsKey:    ck.WsKey,
 		CreateAt: date,
 	}).Error; err != nil {
 		tx.Rollback()
